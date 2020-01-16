@@ -5,7 +5,7 @@ import glob
 import argparse
 import numpy as np
 
-from pytorch_pretrained_bert import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import euclidean_distances
 from nltk.stem import WordNetLemmatizer
@@ -22,10 +22,10 @@ class BERT:
         
         self.device_number = device_number
         self.use_cuda = use_cuda
-        
+
         self.tokenizer = BertTokenizer.from_pretrained('bert-large-uncased')
-        
-        self.model = BertModel.from_pretrained('bert-large-uncased')
+
+        self.model = BertModel.from_pretrained('bert-large-uncased', output_hidden_states=True)
         self.model.eval()
         
         if use_cuda:
@@ -36,7 +36,7 @@ class BERT:
 class Word_Sense_Model:
     
     def __init__(self, device_number = 'cuda:2', use_cuda=True):
-        
+
         self.device_number = device_number
         self.use_cuda = use_cuda
         self.sense_number_map = {'N':1, 'V':2, 'J':3, 'R':4}
@@ -253,7 +253,7 @@ class Word_Sense_Model:
             
         with torch.no_grad():
             
-            _encoded_layers, _ = self.Bert_Model.model(_t1,_t2, output_all_encoded_layers=True)
+            _, _, _encoded_layers = self.Bert_Model.model(_t1, token_type_ids=_t2)
 
             _e1 = _encoded_layers[-4:]
 

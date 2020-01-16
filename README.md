@@ -53,7 +53,6 @@ The steps to carry out the experiments are same for all the files. We shall demo
 
 Run `python BERT_Model.py` with the following main arguments:
 
- - `--use_cuda [True|False]`: (default True) provide whether you want to switch the training to GPU or not.
  - `--device [cuda:0 | cuda:1 ...]` : (default 'cuda:2') Specify the device number on GPU you want to load the BERT model to and do the training.
  - `--train_corpus [FILE_NAME]`: This is the path to your training file.
  - `--train_type [SE|SEM|WNGT]`: Specify this argument depending upon the dataset you are using for training. (The values are case-sensitive).
@@ -79,11 +78,11 @@ Below, we provide two examples to understand how to use the arguments mentioned 
 
  1. To generate the results for SE-2 as mentioned in Table 3 of the paper, run the `BERT_Model.py` file as follows: 
  
- `python BERT_Model.py --use_cuda=True --device=cuda:0 --train_corpus=senseval2_lexical_sample_train.xml trained_pickle=BERT_embs.pickle --test_corpus=senseval2_lexical_sample_test.xml --start_k=1 --end_k=10 --save_xml_to=SE2.xml --use_euclidean=0 --reduced_search=0`
+ `python BERT_Model.py --device=cuda:0 --train_corpus=senseval2_lexical_sample_train.xml trained_pickle=BERT_embs.pickle --test_corpus=senseval2_lexical_sample_test.xml --start_k=1 --end_k=10 --save_xml_to=SE2.xml --use_euclidean=0 --reduced_search=0`
 
 2. To generate the results for S7-T7 on WNGT as mentioned in Table 5 of the paper, run the `BERT_Model.py` file as follows: 
 
- `python BERT_Model.py --use_cuda=True --device=cuda:0 --train_corpus=wngt.xml trained_pickle=WNGT_BERT_embs.pickle --test_corpus=semeval2007task7.xml --start_k=1 --end_k=10 --save_xml_to=SE7T17.xml --use_euclidean=0 --reduced_search=1`
+ `python BERT_Model.py --device=cuda:0 --train_corpus=wngt.xml trained_pickle=WNGT_BERT_embs.pickle --test_corpus=semeval2007task7.xml --start_k=1 --end_k=10 --save_xml_to=SE7T17.xml --use_euclidean=0 --reduced_search=1`
 
 ## Evaluation
 

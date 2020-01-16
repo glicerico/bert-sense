@@ -538,7 +538,7 @@ if __name__=='__main__':
     
     parser = argparse.ArgumentParser(description='WSD using BERT')
     
-    parser.add_argument('--use_cuda', type=bool, default=True, help='Use GPU?')
+    parser.add_argument('--no_cuda', action='store_false', help='Use GPU?')
     parser.add_argument('--device', type=str, default='cuda:2', help='GPU Device to Use?')
     parser.add_argument('--train_corpus', type=str, required=True, help='Training Corpus')
     parser.add_argument('--train_type', type=str, required=True, help='SEM/WNGT/SE')
@@ -556,7 +556,13 @@ if __name__=='__main__':
     print("Testing Corpus is:  " + args.test_corpus)
     print("Nearest Neighbour start: " + str(args.start_k))
     print("Nearest Neighbour end: " + str(args.end_k))
-    
+
+    if args.no_cuda:
+        print("Processing with CUDA!")
+
+    else:
+        print("Processing without CUDA!")
+
     if args.reduced_search:
         print("Using Reduced POS Search!")
     
@@ -571,7 +577,7 @@ if __name__=='__main__':
     
     print("Loading WSD Model!")
     
-    WSD = Word_Sense_Model(device_number = args.device, use_cuda = args.use_cuda)
+    WSD = Word_Sense_Model(device_number=args.device, use_cuda=args.no_cuda)
     
     print("Loaded WSD Model!")
     
